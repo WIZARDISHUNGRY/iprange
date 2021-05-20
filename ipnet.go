@@ -33,6 +33,9 @@ func (ipn *IPNet) lastAddr() net.IP {
 }
 
 func (ipn *IPNet) NextIPNet() *IPNet {
+	if !isV4(ipn.IP) {
+		return nil
+	}
 	ipA := ip2Bound(ipn.Broadcast())
 	ipA.Inc()
 	ret := &IPNet{IP: ipA.IP()}

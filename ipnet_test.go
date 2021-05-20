@@ -59,8 +59,11 @@ func TestIPV6(t *testing.T) {
 				continue
 			}
 			count := 0
+			myipnet := (*IPNet)(ipnet)
+			next := myipnet.NextIPNet()
+			fmt.Println(myipnet, "->", next)
 			continue
-			for ip := range (*IPNet)(ipnet).IPs(ctx) {
+			for ip := range myipnet.IPs(ctx) {
 				if count%10000000 == 0 {
 					fmt.Println(count, ip)
 				}
