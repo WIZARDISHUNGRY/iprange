@@ -8,10 +8,13 @@ import (
 	"github.com/shabbyrobe/go-num"
 )
 
+// List is a collection of IP addresses.
 type List interface {
 	ContainsList(context.Context, List) (bool, error)
 	IPs(context.Context) <-chan net.IP
 }
+
+// Contiguous is an unbroken range of IP adresses
 type Contiguous interface {
 	List
 	ContainsContiguous(context.Context, Contiguous) (bool, error)
@@ -19,7 +22,7 @@ type Contiguous interface {
 	End() net.IP
 }
 
-const ipChanSize = 64
+const ipChanSize = 0
 
 func ipChan() chan net.IP { return make(chan net.IP, ipChanSize) }
 

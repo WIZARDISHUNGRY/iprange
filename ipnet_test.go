@@ -44,7 +44,7 @@ func TestIPNetIPS(t *testing.T) {
 }
 
 func TestIPV6(t *testing.T) {
-	ctx := context.Background()
+	t.SkipNow()
 	ifaces, _ := net.Interfaces()
 
 	for _, iface := range ifaces {
@@ -58,19 +58,9 @@ func TestIPV6(t *testing.T) {
 			if isV4(ipnet.IP) {
 				continue
 			}
-			count := 0
 			myipnet := (*IPNet)(ipnet)
 			next := myipnet.NextIPNet()
-			fmt.Println(myipnet, "->", next)
-			continue
-			for ip := range myipnet.IPs(ctx) {
-				if count%10000000 == 0 {
-					fmt.Println(count, ip)
-				}
-				count++
-			}
-			fmt.Println(iface, ipnet.IP, count)
-
+			fmt.Println(myipnet, "->", next) // next is nil for ipv6
 		}
 	}
 }
